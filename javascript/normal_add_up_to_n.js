@@ -3,12 +3,22 @@ const {performance} = require('perf_hooks');
 // O(n)
 function addUpTo(n) {
 
-  let sum=0;
+  let sum=0; // single assignment
+  // let j =1  is single assignment, doesnt change with n
+  // j <= n has n operations, as n grow the operations count grow
+  // j++ is acutaly j += 1 and alos iterated with as n grows, it is n assigments and n additions
   for (let j = 1; j <= n; j++) {
+    // this also runs n times as n grows the number of operations grows
+    // n additions, n assignment
     sum += j;
   }
   return sum;
 }
+
+// total of 
+// 1 + 1 + n (comparison) + n (addition) + n (assignment) + n (addition) + n (assignment)
+// 5n + 2 operations
+// can be called as O(n)
 
 
 {

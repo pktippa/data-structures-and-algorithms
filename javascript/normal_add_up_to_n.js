@@ -18,6 +18,7 @@ function addUpTo(n) {
 // total of 
 // 1 + 1 + n (comparison) + n (addition) + n (assignment) + n (addition) + n (assignment)
 // 5n + 2 operations
+// regardless of exact number, the number of operations grows roughly with proportinal to n.
 // can be called as O(n)
 
 

@@ -4,40 +4,71 @@ function mergeSortedArrays(f_arr, s_arr) {
     console.log('first ', f_arr, ' second ', s_arr);
     let final_arr = [];
     let first_pointer = 0, second_pointer = 0;
-    while (true) {
-        console.log(`prev arr `, final_arr);
-        console.log(`first_pointer ${first_pointer}, value: ${f_arr[first_pointer]}, second_pointer ${second_pointer} value: ${s_arr[second_pointer]}`);
-        if(first_pointer >= f_arr.length && second_pointer >= s_arr.length){
-            break;
-        }
-        if(first_pointer === f_arr.length ){
-            final_arr.push(s_arr[second_pointer]);
-            second_pointer++;
-            continue;
-        }
-        if(second_pointer === s_arr.length) {
+    // while (true) {
+    //     console.log(`prev arr `, final_arr);
+    //     console.log(`first_pointer ${first_pointer}, value: ${f_arr[first_pointer]}, second_pointer ${second_pointer} value: ${s_arr[second_pointer]}`);
+    //     if(first_pointer >= f_arr.length && second_pointer >= s_arr.length){
+    //         break;
+    //     }
+    //     if(first_pointer === f_arr.length ){
+    //         final_arr.push(s_arr[second_pointer]);
+    //         second_pointer++;
+    //         continue;
+    //     }
+    //     if(second_pointer === s_arr.length) {
+    //         final_arr.push(f_arr[first_pointer]);
+    //         first_pointer++;
+    //         continue;
+    //     }
+
+    //     if(f_arr[first_pointer] < s_arr[second_pointer]) {
+    //         final_arr.push(f_arr[first_pointer]);
+    //         first_pointer++;
+    //     }else {
+    //         final_arr.push(s_arr[second_pointer]);
+    //         second_pointer++;
+    //     }
+
+    // }
+    // if (second_pointer === s_arr.length && first_pointer !== f_arr.length) {
+    //     final_arr.concat(f_arr.slice(first_pointer));
+    // }
+    // if (first_pointer === final_arr.length && second_pointer !== s_arr.length) {
+    //     final_arr.concat(s_arr.slice(second_pointer));
+    // }
+
+    while(first_pointer < f_arr.length && second_pointer < s_arr.length){
+        if(s_arr[second_pointer] > f_arr[first_pointer]){
             final_arr.push(f_arr[first_pointer]);
             first_pointer++;
-            continue;
-        }
-
-        if(f_arr[first_pointer] < s_arr[second_pointer]) {
-            final_arr.push(f_arr[first_pointer]);
-            first_pointer++;
-        }else {
-            final_arr.push(s_arr[second_pointer]);
+        } else {
+            final_arr.push(s_arr[second_pointer])
             second_pointer++;
         }
-
     }
-    if (second_pointer === s_arr.length && first_pointer !== f_arr.length) {
-        final_arr.concat(f_arr.slice(first_pointer));
+    while(first_pointer < f_arr.length) {
+        final_arr.push(f_arr[first_pointer])
+        first_pointer++;
     }
-    if (first_pointer === final_arr.length && second_pointer !== s_arr.length) {
-        final_arr.concat(s_arr.slice(second_pointer));
+    while(second_pointer < s_arr.length) {
+        final_arr.push(s_arr[second_pointer])
+        second_pointer++;
     }
     return final_arr;
 }
 
 // console.log(mergeSortedArrays([1,4,7], [2,3,6])); // [ 1, 2, 3, 4, 6, 7 ]
-console.log(mergeSortedArrays([1,2,2],[0]));
+// console.log(mergeSortedArrays([1,2,2],[0]));
+
+function mergeSort(inp) {
+    console.log(`input `, inp);
+    if (inp.length <= 1) return inp;
+    let len = Math.floor(inp.length /2);
+    const firs = mergeSort(inp.slice(0, len));
+    console.log(`first `, firs);
+    const sec = mergeSort(inp.slice(len));
+    console.log(`sec `, sec);
+    return mergeSortedArrays(firs, sec);
+}
+
+console.log(mergeSort([ 1, 4, 3, 2, 7 ]));

@@ -30,14 +30,32 @@ class SinglyLinkedList {
         if(!this.head && !this.tail) {
             this.head = n;
             this.tail = n;
-            this.length += 1;
         } else {
-            const tail = this.tail;
-            tail.next = n;
+            this.tail.next = n;
             this.tail = n;
-            this.length += 1;
         }
+        this.length += 1;
+        return this;
     }
 
-    
+    pop() {
+        if(!this.head) return null;
+        if(!this.head.next) {
+            const item = this.head;
+            this.head = null;
+            this.tail = null;
+            this.length--;
+            return item;
+        }
+        let current = this.head;
+        let newTail = current;
+        while(current.next) {
+            newTail = current;
+            current = current.next;
+        }
+        this.tail = newTail;
+        this.tail.next = null;
+        this.length--;
+        return current;
+    }    
 }

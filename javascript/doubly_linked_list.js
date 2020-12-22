@@ -173,6 +173,25 @@ class DoublyLinkedList {
         return found;
     }
 
+    /**
+     * can have two approaches, one with have another double linked list and insert at beginning
+     * or
+     * in place update
+     */
+    reverse(){
+        if(this.length === 0 || this.length === 1) return this;
+        let rev = new DoublyLinkedList();
+        let current = this.tail;
+        while(current){
+            rev.push(current.val);
+            current = current.prev;
+        }
+        rev.printForward();
+        this.head = rev.head;
+        this.tail = rev.tail;
+        return this;
+    }
+
     printBackward() {
         let current = this.tail;
         while(current){

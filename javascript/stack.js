@@ -42,10 +42,19 @@ class Stack{
     shol
     */
     pop() {
+        if(!this.head) return null;
+        if(this.length === 1) {
+            let head = this.head;
+            this.head = null;
+            this.tail = null;
+            this.length--;
+            return head.val;
+        }
         let head = this.head;
         let next = head.next;
         this.head = next;
         head.next = null;
+        this.length--;
         return head.val;
 
     }

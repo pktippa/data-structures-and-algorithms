@@ -7,6 +7,18 @@ class Node {
 }
 
 class BinarySearchTree {
+    /**
+     * 
+let tree = new BinarySearchTree();
+tree.insert(10);
+tree.insert(14);
+tree.insert(8);
+tree.insert(9);
+tree.insert(5);
+tree.insert(12);
+tree.insert(17);
+
+     */
     constructor() {
         this.root = null;
     }
@@ -77,5 +89,36 @@ class BinarySearchTree {
              }
         }
         return true;
+    }
+
+    /**
+     * BFS uses queue to keep track of nodes that are need to be traversed
+     * Enqueue (push) tree root on the queue
+     * Loop through queue until it is empty
+     *  - dequeue (shift) the elemenet
+     *  - check and add to queue if element has left
+     *  - check and add to queue if element has right   
+     * 
+     * @returns Array
+     */
+    bfs() {
+        const result = [];
+        if (!this.root) return result;
+        const queue = [];
+        queue.push(this.root)
+        while(queue.length > 0) {
+            const element = queue.shift();
+            result.push(element.val);
+           
+            if (element.left) {
+                queue.push(element.left);
+            }
+            if (element.right) {
+                queue.push(element.right);
+            }
+        }
+        // console.log(tree.bfs());
+        // [10, 8, 14, 5, 9, 12, 17]
+        return result;
     }
 }

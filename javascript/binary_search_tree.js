@@ -121,4 +121,76 @@ tree.insert(17);
         // [10, 8, 14, 5, 9, 12, 17]
         return result;
     }
+
+    /**
+     * 
+     * Result importance:
+     * 
+     * The output of PreOrder can be used to reconstruct the tree with the order of elements
+     * 
+     * Look on the left side first, once all the nodes on left are done
+     * the check for right
+     * 
+     * Create a variable to store the returning values of nodes visited
+     * Store the root of the tree to current
+     * 
+     * (Recursion)
+     * Write a helper function (preorder traverse) which accepts a node
+     * - Push the value of node (since it is visited) to the nodes visited store
+     * - if the node has left, call the same function (recurse - preorder traverse) with node.left
+     * - if the node has right, call the same function (recurse - preorder traverse) with node.right
+     */
+     DFS_PreOrder() {
+        const result = [];
+        const preOrderTraverse = (node) => {
+            result.push(node.val);
+            if (node.left) preOrderTraverse(node.left);
+            if (node.right) preOrderTraverse(node.right);
+        }
+        preOrderTraverse(this.root);
+        // console.log(tree.DFS_PreOrder());
+        // [10, 8, 5, 9, 14, 12, 17]
+        return result;
+    }
+
+    /**
+     * Only change with preorder to the post order traversal of nodes
+     * is we will add to the visited listed after traversal!
+     * where as in pre order we add to the list before traversal (recursive) function
+     * @returns 
+     */
+    DFS_PostOrder() {
+        const result = [];
+        const postOrderTraverse = (node) => {
+            if (node.left) postOrderTraverse(node.left);
+            if (node.right) postOrderTraverse(node.right);
+            result.push(node.val);
+        }
+        postOrderTraverse(this.root);
+        // console.log(tree.DFS_PreOrder());
+        // [5, 9, 8, 12, 17, 14, 10]
+        return result;
+    }
+
+    /**
+     * As the name suggests the ouput of the DFS In order is 
+     * ordered elements from lowest to highest, observe
+     * [5, 8, 9, 10, 12, 14, 17]
+     * 
+     * Traverse the entire left and then visit the node and 
+     * then traverse the entire right
+     * 
+     * 
+     */
+    DFS_InOrder() {
+        const result = [];
+        const inOrderTraverse = (node) => {
+            if(node.left) inOrderTraverse(node.left);
+            result.push(node.val);
+            if(node.right) inOrderTraverse(node.right);
+        }
+        inOrderTraverse(this.root);
+        // [5, 8, 9, 10, 12, 14, 17]
+        return result;
+    }
 }

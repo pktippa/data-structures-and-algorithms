@@ -1,3 +1,9 @@
+/**
+ * A good hash should be 
+ * - fast (Big O with O(1) complexity)
+ * - distribute keys uniformly
+ * - deterministic (same key should give same index every time we compute hash)
+ */
 class HashTable {
     constructor(size=53) {
         this.keyMap = new Array(size);
@@ -22,6 +28,9 @@ class HashTable {
      * Separate chaining includes storing multiple values (each value is separate index)
      *  if value doesnt exists create empty array and add first element
      *  if value exists push a new array element to value array
+     * 
+     * Linear Probing is another strategy for deal with collision, it looks forward for next
+     * empty slot 
      * @param {*} key string
      * @param {*} value any
      */
@@ -60,5 +69,47 @@ class HashTable {
             }
         }
         return undefined;
+    }
+
+    /**
+     * return unique keys, ofcourse keys in hash table are always unique
+     */
+    keys() {
+        let keys = [];
+        for(let i=0; i < this.keyMap.length; i++) {
+            if(this.keyMap[i]){
+                for(let j =0; j < this.keyMap[i].length;j++) {
+                    keys.push(this.keyMap[i][j][0]);
+                }
+            }
+        }
+        return keys;
+    }
+
+    /**
+     * Return unique values of HashTable
+     */
+    values() {
+        // let values = [];
+        let values = new Set();
+        for(let i=0; i < this.keyMap.length; i++) {
+            if(this.keyMap[i]){
+                for(let j =0; j < this.keyMap[i].length;j++) {
+                    // For avoiding duplicates
+                    
+                    // using Set here
+                    if(!values.has(this.keyMap[i][j][1])) {
+                        values.add(this.keyMap[i][j][1]);
+                    }
+                    // Array implementation to find and avoid duplicate
+                    // if(values.findIndex(v => v === this.keyMap[i][j][1]) < 0) {
+                    //     values.push(this.keyMap[i][j][1]);
+                    // }
+                    // at the end of function
+                    // return values;
+                }
+            }
+        }
+        return Array.from(values);
     }
 }

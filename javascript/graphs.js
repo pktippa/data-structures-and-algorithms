@@ -16,7 +16,7 @@ class Graph {
     }
 
     // Assuming undirected graph
-    // Add an Edge between two vertices
+    // Add an Edge between two vertices (or connecting two nodes)
     // 1. function should accept two verticies names
     // 2. find the adjancency list in vertex 2 and add the vertex 1 name in the array
     // 3. find the adjacency list in vertex 1 and add the vertex 2 name in the array
@@ -113,6 +113,56 @@ class Graph {
         traverse(vertex);
 
         return finalResult;
+    }
+
+    /** Pseudocode
+     * accet a start vertex/ node (start)
+     * let S be a Stack
+     * S.push(start)
+     * while S is not empty
+     *      vertex = s.pop()
+     *      if vertex is not labeled as discovered
+     *          visit vertex (add to result list)
+     *          mark/ label as discovered
+     *          for each vertex's neighbours 
+     *              S.push(neighbor_vertex)
+     * 
+     * Full step by step pseudocode
+     * 
+     * the function should accept a starting node
+     * Create a stack to help use keep track of vertices (use a list/ array)
+     * Create a list to store the end result, to be returned at the very end 
+     * Create an object to store the visited vertices
+     * Add a starting vertex to the stack and mark it as visited
+     * While the stack has something on it 
+     *   - Pop the next vertex from the stack
+     *   - if vertex hasnt been visited yet
+     *      -  mark it as visited
+     *      -  add to visited list
+     *      - push all of its neighbors into stack
+     * Return the result array
+     * 
+     * 
+     * Usage:
+     * 
+     * DFS_Iterative('A')
+     */
+    DFS_Iterative(start) {
+        const stack = [];
+        const result = [];
+        let visited  = {};
+        stack.push(start);
+        while(stack.length > 0) {
+            let vertex = stack.pop();
+            if(!visited[vertex]) {
+                visited[vertex] = true;
+                result.push(vertex);
+                for(const v of this.adjacentList[vertex]) {
+                    stack.push(v);
+                }
+            }
+        }
+        return result;
     }
 }
 const g = new Graph();

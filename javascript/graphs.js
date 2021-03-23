@@ -164,6 +164,43 @@ class Graph {
         }
         return result;
     }
+
+    /**
+     * BFS - Breadth first search
+     * 1. the function should accept starting vertex/ node to start traversing
+     * 2. create a queue and place starting vertex
+     * 3. create a Map/ object to keep track of nodes visited
+     * 4. mark the starting vertex as visited
+     * 5. loop as long as elements are available in queue
+     * 6. remove the first vertex and check if the vertex is not visited
+     *      if not visted
+     *          mark as visited
+     *          loop the vertices if retrieved vertex from the queue
+     *          add to queue (enqueue) 
+     * 7. return the visited list/ array
+     */
+    BFS_Iterative(start_vertex) {
+        const result = [];
+        const visited = {
+        };
+        // queue operations map to array operations
+        // enqueue = get the first element => array shift
+        // dequeue = add element at the end => push oper
+        const queue = [start_vertex];
+        while(queue.length) {
+            const vertex = queue.shift();
+            if(!visited[vertex]) {
+                result.push(vertex);
+                visited[vertex] = true;
+                for(const v of this.adjacentList[vertex]) {
+                    queue.push(v);
+                }
+            }
+            
+            
+        }
+        return result;
+    }
 }
 const g = new Graph();
 g.addVertex("A")
@@ -180,3 +217,6 @@ g.addEdge("C","E")
 g.addEdge("D","E")
 g.addEdge("D","F")
 g.addEdge("E","F")
+console.log('DFS_Recursive("A")', g.DFS_Recursive('A'));
+console.log('DFS_Iterative("A")', g.DFS_Iterative('A'));
+console.log('BFS_Iterative("A") ', g.BFS_Iterative('A'));

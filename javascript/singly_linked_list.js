@@ -85,6 +85,24 @@ class SinglyLinkedList {
     return this;
   }
 
+  rotate(num) {
+    if(this.length === 0 || this.length === 1) { return;}
+    let rot_val = num % this.length;
+    if(rot_val === 0){return;} 
+    if (rot_val < 0) {
+      rot_val = this.length + rot_val;
+    }
+    const prev = this.get(rot_val - 1);
+    const newHead = prev.next;
+    prev.next = null;
+    const ex_tail = this.tail;
+    const head = this.head;
+    ex_tail.next = head;
+    this.tail = prev;
+    this.head = newHead;
+    console.log(prev); //
+  }
+
   get(index) {
     if (index < 0 || index >= this.length) return null;
     let counter = 0;
@@ -158,4 +176,19 @@ class SinglyLinkedList {
     }
     console.log(arr);
   }
+}
+
+{
+  const s = new SinglyLinkedList();
+  s.push(5).push(10).push(15).push(20).push(25);
+  console.log(s.head.val); // 5
+  console.log(s.tail.val); // 25
+  
+  s.rotate(3);
+  console.log(s.head.val); //20
+  console.log(s.tail.val); // 15
+
+  s.rotate(-1);
+  console.log(s.head.val); //25
+  console.log(s.tail.val); //5
 }
